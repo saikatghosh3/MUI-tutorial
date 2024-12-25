@@ -1,18 +1,35 @@
-import React, { useState } from 'react';
-import { TextField, Button } from '@mui/material';
+import React, { useState } from "react";
+import {
+  TextField,
+  Button,
+  FormGroup,
+  Select,
+  FormControlLabel,
+  Checkbox,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
 
 const Form = () => {
   const [inputs, setInputs] = useState({
-    name: '',
-    email: '',
-    password: '',
+    name: "",
+    email: "",
+    password: "",
+    gender: "male", // default value
+    courses: "",
+    termsAccepted: true, // for the checkbox
   });
 
   // Input change function
   const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
     setInputs((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -25,6 +42,7 @@ const Form = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
+        {/* Name Field */}
         <TextField
           name="name"
           value={inputs.name}
@@ -35,6 +53,8 @@ const Form = () => {
           sx={{ margin: "2rem" }}
         />
         <br />
+        
+        {/* Email Field */}
         <TextField
           name="email"
           value={inputs.email}
@@ -45,6 +65,8 @@ const Form = () => {
           sx={{ margin: "2rem" }}
         />
         <br />
+        
+        {/* Password Field */}
         <TextField
           name="password"
           value={inputs.password}
@@ -55,6 +77,57 @@ const Form = () => {
           sx={{ margin: "2rem" }}
         />
         <br />
+
+        {/* Terms and Conditions Checkbox */}
+        <FormGroup sx={{ margin: "2rem" }}>
+          <FormControlLabel
+            label="I agree T&C"
+            control={
+              <Checkbox
+                name="termsAccepted"
+                checked={inputs.termsAccepted}
+                onChange={handleChange}
+              />
+            }
+          />
+        </FormGroup>
+        <br />
+        
+        {/* Courses Select Dropdown */}
+        <FormControl fullWidth sx={{ margin: "2rem" }}>
+          <InputLabel id="courses-label">Courses</InputLabel>
+          <Select
+            labelId="courses-label"
+            id="courses"
+            value={inputs.courses}
+            onChange={handleChange}
+            name="courses"
+          >
+            <MenuItem value="mongodb">MongoDB</MenuItem>
+            <MenuItem value="express">Express.js</MenuItem>
+            <MenuItem value="nodejs">Node.js</MenuItem>
+            <MenuItem value="react">React</MenuItem>
+            <MenuItem value="typescript">TypeScript</MenuItem>
+          </Select>
+        </FormControl>
+        <br />
+        
+        {/* Gender Radio Group */}
+        <FormControl sx={{ margin: "2rem" }}>
+          <FormLabel>Gender</FormLabel>
+          <RadioGroup
+            name="gender"
+            value={inputs.gender}
+            onChange={handleChange}
+          >
+            <FormControlLabel value="male" label="Male" control={<Radio />} />
+            <FormControlLabel value="female" label="Female" control={<Radio />} />
+            <FormControlLabel value="other" label="Other" control={<Radio />} />
+          </RadioGroup>
+        </FormControl>
+        <br />
+        
+        {/* Submit Button */}
         <Button type="submit" variant="contained" color="primary">
           Submit
         </Button>
