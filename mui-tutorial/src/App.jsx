@@ -3,6 +3,7 @@ import React from 'react';
 import {Typography, Button, TextField} from '@mui/material';
 import Form from './Form';
 import Nav from './Nav';
+import Cards from './Cards';
 
 function App() {
  
@@ -24,7 +25,8 @@ function App() {
      <TextField type='text' placeholder="Enter your name" variant="filled" sx={{margin: "2rem"}}/>
      */}
      {/* <Form/> */}
-     <Nav/>
+     {/* <Nav/> */}
+     <Cards/>
     </>
   )
 }
